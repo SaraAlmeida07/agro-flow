@@ -13,7 +13,7 @@ export class BovinoLeite extends Bovino {
         return this.litrosLeiteDia;
     }
 
-
+    // getRelatorioOrdenha(): void {
     public relatorioOrdenha(): void {
         console.log(`🐄 Relatório de Ordenha: Este animal produz ${this.litrosLeiteDia} litros por dia.`);
     }

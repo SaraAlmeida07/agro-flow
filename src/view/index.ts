@@ -1,5 +1,5 @@
-import { Bovino } from './Bovino.ts';
-import { Vacina } from './Vacina.ts';
+import { Bovino } from '../model/Bovino';
+import { Vacina } from '../model/Vacina';
 
 console.log("=== SISTEMA AGROFLOW ===");
 

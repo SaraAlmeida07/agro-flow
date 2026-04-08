@@ -12,16 +12,14 @@ export class BovinoCorte extends Bovino {
         this.pesoEntrada = pesoEntrada;
     }
 
-    public calcularValorEstimadoVivo(): number {
-       
+     getValorEstimadoVivo(): number {
         return super.getPeso() * this.valorQuiloVivo;
     }
-
-    public calcularValorEstimadoMorto(): number {
-        
+    
+    getValorEstimadoMorto(): number {
         return super.getPeso() * this.valorQuiloMorto;
     }
-
+    
     public calcularGanhoDePeso(): number {
         
         let ganho = super.getPeso() - this.pesoEntrada;
