@@ -1,11 +1,13 @@
+import { RacaBovina } from "./RacaBovina";
+
 export class Bovino {
     private brinco: string;
-    private raca: string;
+    private raca: RacaBovina;
     private peso: number; // Peso em kg
     private idade: number; // Idade em anos
     // private vacinas: Vacina[] = []; // Lista de vacinas aplicadas
 
-    constructor(brinco: string, raca: string, peso: number, idade: number) { //muita coisa no construtor, talvez seja melhor deixar somente os setters e getters
+    constructor(brinco: string, raca: RacaBovina, peso: number, idade: number) { //muita coisa no construtor, talvez seja melhor deixar somente os setters e getters
         this.brinco = brinco;
         this.raca = raca;
         this.peso = peso;
@@ -16,7 +18,7 @@ export class Bovino {
         return this.brinco;
     }
 
-    public getRaca(): string {
+    public getRaca(): RacaBovina {
         return this.raca;
     }
 
@@ -39,10 +41,6 @@ export class Bovino {
     }
 
     
-    // getFicha() 
-    public imprimirFicha(): void {
-        console.log(`🐄 [Ficha] Brinco: ${this.brinco} | Raça: ${this.raca} | Peso: ${this.peso}kg | Idade: ${this.idade} anos`);
-    }
-
-    // public vacinar(vacina: Vacina): void {
+    
+   
 }

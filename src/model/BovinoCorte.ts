@@ -1,4 +1,5 @@
 import { Bovino } from "./Bovino";
+import { RacaBovina } from "./RacaBovina";
 
 export class BovinoCorte extends Bovino {
   
@@ -6,7 +7,7 @@ export class BovinoCorte extends Bovino {
     private dataEntrada: Date;
     private dataUltimaPesagem: Date;
 
-    constructor(brinco: string, raca: string, peso: number, idade: number) {
+    constructor(brinco: string, raca: RacaBovina, peso: number, idade: number) {
         super(brinco, raca, peso, idade);
         
         this.pesoEntrada = peso; 

@@ -1,5 +1,6 @@
 
 import { BovinoCorte } from '../model/BovinoCorte';
+import { RacaBovina } from '../model/RacaBovina';
 import { RelatorioService } from '../service/RelatorioService'
 
 export class BovinoController {
@@ -13,7 +14,7 @@ export class BovinoController {
     }
 
     // Método que a View vai chamar quando o usuário quiser cadastrar um boi
-    public cadastrarBovino(brinco: string, raca: string, peso: number, idade: number): void {
+    public cadastrarBovino(brinco: string, raca: RacaBovina, peso: number, idade: number): void {
         
         // 1. O Controller é quem cria a instância do Model
         const novoBovino = new BovinoCorte(brinco, raca, peso, idade);

@@ -1,19 +1,16 @@
-
 import { BovinoController } from '../controller/BovinoController';
 import { RelatorioService } from '../service/RelatorioService';
+import { RacaBovina } from '../model/RacaBovina'; 
 import * as readline from 'readline/promises';
 import { stdin as input, stdout as output } from 'process';
-
 
 async function iniciarSistema() {
     console.log("=========================================");
     console.log("       TELA INICIAL: AGROFLOW            ");
     console.log("=========================================\n");
 
-    // 1. INJEÇÃO DE DEPENDÊNCIA
-    // Criamos o serviço especialista em relatórios
-   const servicoDeRelatorio = new RelatorioService();
-    // E passamos ele para o Controller, que é o gerente do sistema
+    // INJEÇÃO DE DEPENDÊNCIA
+    const servicoDeRelatorio = new RelatorioService();
     const controller = new BovinoController(servicoDeRelatorio);
     
     // Configura o leitor do terminal
@@ -25,9 +22,26 @@ async function iniciarSistema() {
     while (continuar) {
         console.log("\n--- Novo Cadastro de Bovino de Corte ---");
 
-        // O 'await' faz o código pausar e esperar o usuário digitar e dar Enter
         const brinco = await rl.question("Digite o brinco do animal (ex: C-101): ");
-        const raca = await rl.question("Digite a raça (ex: Nelore): ");
+        
+        // 2. APLICAÇÃO DO ENUM (Cardápio fechado de raças)
+        console.log("\nOpções de Raça:");
+        console.log("1 - Nelore");
+        console.log("2 - Angus");
+        console.log("3 - Brahman");
+        const opcaoRaca = await rl.question("Escolha a raça (digite 1, 2 ou 3): ");
+
+        let racaEscolhida: RacaBovina;
+        if (opcaoRaca === '1') {
+            racaEscolhida = RacaBovina.NELORE;
+        } else if (opcaoRaca === '2') {
+            racaEscolhida = RacaBovina.ANGUS;
+        } else if (opcaoRaca === '3') {
+            racaEscolhida = RacaBovina.BRAHMAN;
+        } else {
+            racaEscolhida = RacaBovina.CRUZAMENTO; // Valor padrão se digitar algo errado
+        }
+
         const pesoDigitado = await rl.question("Digite o peso atual em kg: ");
         const idadeDigitada = await rl.question("Digite a idade em meses: ");
 
@@ -35,23 +49,26 @@ async function iniciarSistema() {
         const peso = parseFloat(pesoDigitado);
         const idade = parseFloat(idadeDigitada);
 
-       
         console.log("\nEnviando dados para o Controller...");
         
-        // A View manda os dados para o Gerente (Controller)
-        controller.cadastrarBovino(brinco, raca, peso, idade);
+        // A View manda os dados para o Gerente usando a racaEscolhida do Enum
+        controller.cadastrarBovino(brinco, racaEscolhida, peso, idade);
 
-        // Pergunta se o usuário quer continuar
         const resposta = await rl.question("\nDeseja cadastrar outro animal? (s/n): ");
         if (resposta.toLowerCase() !== 's') {
             continuar = false; // Sai do loop
         }
     }
 
-    // Quando o usuário terminar de cadastrar, mostramos o relatório
+    //  Pergunta a cotação do dia de forma interativa
     console.log("\nCalculando fechamento do lote...");
-    const listaDeRelatorios = controller.gerarRelatorios(15); // Exemplo de cotação do dia
+    const cotacaoDigitada = await rl.question("Qual a cotação do quilo vivo hoje? (ex: 15.50): ");
+    const cotacaoDoDia = parseFloat(cotacaoDigitada);
+    
+    const listaDeRelatorios = controller.gerarRelatorios(cotacaoDoDia); 
+
     console.log(listaDeRelatorios);
+    
 
     // Fecha o leitor do terminal para o programa conseguir encerrar
     rl.close();

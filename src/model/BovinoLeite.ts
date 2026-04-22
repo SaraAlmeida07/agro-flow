@@ -1,9 +1,10 @@
 import { Bovino } from "./Bovino";
+import { RacaBovina } from "./RacaBovina";
 
 export class BovinoLeite extends Bovino {
     private litrosLeiteDia: number;
 
-    constructor(brinco: string, raca: string, peso: number, idade: number, litrosLeiteDia: number) {
+    constructor(brinco: string, raca: RacaBovina, peso: number, idade: number, litrosLeiteDia: number) {
         
         super(brinco, raca, peso, idade);
         this.litrosLeiteDia = litrosLeiteDia;
