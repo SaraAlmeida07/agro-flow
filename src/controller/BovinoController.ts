@@ -1,6 +1,6 @@
 
 import { BovinoCorte } from '../model/BovinoCorte';
-import { RacaBovina } from '../model/RacaBovina';
+import { RacaBovina } from '../enum/RacaBovina';
 import { RelatorioService } from '../service/RelatorioService'
 
 export class BovinoController {

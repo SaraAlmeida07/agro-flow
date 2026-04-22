@@ -1,5 +1,5 @@
 import { Bovino } from "./Bovino";
-import { RacaBovina } from "./RacaBovina";
+import { RacaBovina } from "../enum/RacaBovina";
 
 export class BovinoLeite extends Bovino {
     private litrosLeiteDia: number;

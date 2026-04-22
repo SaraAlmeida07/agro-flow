@@ -1,6 +1,6 @@
 import { BovinoController } from '../controller/BovinoController';
 import { RelatorioService } from '../service/RelatorioService';
-import { RacaBovina } from '../model/RacaBovina'; 
+import { RacaBovina } from '../enum/RacaBovina'; 
 import * as readline from 'readline/promises';
 import { stdin as input, stdout as output } from 'process';
 

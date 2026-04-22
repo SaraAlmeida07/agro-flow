@@ -11,8 +11,12 @@ export class Vacina {
         this.fabricante = fabricante;
     }
 
-    // getDetalhesDaVacina(): string {
-    public exibirDetalhes(): void {
-        console.log(` [Vacina] ${this.nome} | Lote: ${this.lote} | Data: ${this.dataAplicacao} | Fab: ${this.fabricante}`);
+    public getNome(): string { return this.nome; }          
+    public getLote(): string { return this.lote; }
+    public getDataAplicacao(): string { return this.dataAplicacao; }
+    public getFabricante(): string { return this.fabricante; }
+    
+    public getDetalhes(): string {
+        return ` [Vacina] ${this.nome} | Lote: ${this.lote} | Data: ${this.dataAplicacao} | Fab: ${this.fabricante}`;
     }
 }
