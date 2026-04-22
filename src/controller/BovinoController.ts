@@ -1,41 +1,38 @@
 
+import Database from '../Database';
 import { BovinoCorte } from '../model/BovinoCorte';
+import { BovinoLeite } from '../model/BovinoLeite';
 import { RacaBovina } from '../enum/RacaBovina';
-import { RelatorioService } from '../service/RelatorioService'
+import { RelatorioService } from '../service/RelatorioService';
 
 export class BovinoController {
-    // Simulando um banco de dados (uma lista que guarda nossos animais do Model)
-    private rebanho: BovinoCorte[] = [];
-
+    private database: Database;
     private relatorioService: RelatorioService;
 
-    constructor(relatorioService: RelatorioService) {
-        this.relatorioService = relatorioService; // A dependência é injetada aqui
+    constructor(database: Database, relatorioService: RelatorioService) {
+        this.database = database;
+        this.relatorioService = relatorioService;
     }
 
-    // Método que a View vai chamar quando o usuário quiser cadastrar um boi
-    public cadastrarBovino(brinco: string, raca: RacaBovina, peso: number, idade: number): void {
-        
-        // 1. O Controller é quem cria a instância do Model
+    // Cadastrar Bovino de Corte
+    public cadastrarBovinoCorte(brinco: string, raca: RacaBovina, peso: number, idade: number): boolean {
         const novoBovino = new BovinoCorte(brinco, raca, peso, idade);
-        
-        // 2. Salva no nosso "banco de dados"
-        this.rebanho.push(novoBovino);
-        
-        console.log(`✅ [Sistema] Boi da raça ${raca} (Brinco: ${brinco}) salvo com sucesso!`);
+        this.database.bovinosCorte.push(novoBovino);
+        return true;
     }
 
-    // O método agora pede a cotação do dia e usa o Service
-    public gerarRelatorios(cotacaoDiaVivo: number): string {
-        let relatoriosProntos: string[] = [];
-        
-        for (let boi of this.rebanho) {
-            // O Controller NÃO chama mais boi.relatorioDesempenho()
-            // Ele DELEGA o trabalho para o Serviço Especialista:
-            const textoRelatorio = this.relatorioService.gerarRelatorioEngorda(boi, cotacaoDiaVivo);
-            
-            relatoriosProntos.push(textoRelatorio);
-        }
-        return relatoriosProntos.join("\n"); // Junta todos os relatórios em uma única string, separados por linhas   
+    // Cadastrar Bovino de Leite
+    public cadastrarBovinoLeite(brinco: string, raca: RacaBovina, peso: number, idade: number, litrosLeiteDia: number): boolean {
+        const novoBovino = new BovinoLeite(brinco, raca, peso, idade, litrosLeiteDia);
+        this.database.bovinosLeite.push(novoBovino);
+        return true;
+    }
+
+   public gerarRelatorios(): string {
+    // Ele pega os dados do banco e passa para o serviço formatar
+    return this.relatorioService.gerarRelatorioGeral(
+        this.database.bovinosCorte, 
+        this.database.bovinosLeite
+    );
     }
 }
