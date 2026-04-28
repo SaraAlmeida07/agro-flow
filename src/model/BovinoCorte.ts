@@ -1,5 +1,5 @@
 import { Bovino } from "./Bovino";
-import { RacaBovina } from "./RacaBovina";
+import { RacaBovina } from "../enum/RacaBovina";
 
 export class BovinoCorte extends Bovino {
   
@@ -23,8 +23,7 @@ export class BovinoCorte extends Bovino {
         return super.getPeso() * cotacaoDiaMorto;
     }
 
-    //Calculo do GMD - Ganho Médio Diário
-
+        //GMD Calculos
     public calcularGanhoTotal(): number {
         // Peso de hoje menos o peso de quando chegou
         return super.getPeso() - this.pesoEntrada;

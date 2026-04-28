@@ -1,4 +1,4 @@
-import { RacaBovina } from "./RacaBovina";
+import { RacaBovina } from "../enum/RacaBovina";
 
 export class Bovino {
     private brinco: string;

@@ -1,41 +1,39 @@
 
 import { BovinoCorte } from '../model/BovinoCorte';
-import { RacaBovina } from '../model/RacaBovina';
+import { RacaBovina } from '../enum/RacaBovina';
 import { RelatorioService } from '../service/RelatorioService'
+import { Database } from '../Database';
 
 export class BovinoController {
-    // Simulando um banco de dados (uma lista que guarda nossos animais do Model)
-    private rebanho: BovinoCorte[] = [];
+    
+    private db: Database;
 
     private relatorioService: RelatorioService;
 
-    constructor(relatorioService: RelatorioService) {
-        this.relatorioService = relatorioService; // A dependência é injetada aqui
+   constructor(db: Database, relatorioService: RelatorioService) {
+        this.db = db;
+        this.relatorioService = relatorioService;
     }
-
     // Método que a View vai chamar quando o usuário quiser cadastrar um boi
     public cadastrarBovino(brinco: string, raca: RacaBovina, peso: number, idade: number): void {
         
         // 1. O Controller é quem cria a instância do Model
         const novoBovino = new BovinoCorte(brinco, raca, peso, idade);
         
-        // 2. Salva no nosso "banco de dados"
-        this.rebanho.push(novoBovino);
+        // salva no Database
+       this.db.salvarBovino(novoBovino);
         
         console.log(`✅ [Sistema] Boi da raça ${raca} (Brinco: ${brinco}) salvo com sucesso!`);
     }
 
-    // O método agora pede a cotação do dia e usa o Service
+    // Usando o Service
     public gerarRelatorios(cotacaoDiaVivo: number): string {
         let relatoriosProntos: string[] = [];
         
-        for (let boi of this.rebanho) {
-            // O Controller NÃO chama mais boi.relatorioDesempenho()
-            // Ele DELEGA o trabalho para o Serviço Especialista:
+      for (let boi of this.db.listarRebanho()) {
             const textoRelatorio = this.relatorioService.gerarRelatorioEngorda(boi, cotacaoDiaVivo);
-            
             relatoriosProntos.push(textoRelatorio);
         }
-        return relatoriosProntos.join("\n"); // Junta todos os relatórios em uma única string, separados por linhas   
+        return relatoriosProntos.join("\n"); 
     }
 }
