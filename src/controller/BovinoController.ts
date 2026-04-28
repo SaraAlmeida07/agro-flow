@@ -14,7 +14,6 @@ export class BovinoController {
         this.db = db;
         this.relatorioService = relatorioService;
     }
-    // Método que a View vai chamar quando o usuário quiser cadastrar um boi
     public cadastrarBovino(brinco: string, raca: RacaBovina, peso: number, idade: number): void {
         
         // 1. O Controller é quem cria a instância do Model
