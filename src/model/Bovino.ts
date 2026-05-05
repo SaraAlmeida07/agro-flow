@@ -39,7 +39,11 @@ export class Bovino {
 
     }
 
-    
-    
-   
+    public gerarRelatorio(): string {
+        return `Brinco: ${this.brinco}, Raça: ${this.raca}, Peso: ${this.peso}kg`;
+    }
+
+    public obterValor(cotacaoDia: number): string {
+        return "";
+    }
 }

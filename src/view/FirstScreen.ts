@@ -19,9 +19,15 @@ export class FirstScreen {
         let continuar = true;
 
         while (continuar) {
-            console.log("\n--- Novo Cadastro de Bovino de Corte ---");
+            console.log("\n--- Novo Cadastro de Bovino ---");
+            
+            console.log("\nTipo de Bovino:");
+            console.log("1 - Bovino de Corte");
+            console.log("2 - Bovino de Leite");
+            const opcaoTipo = await rl.question("Escolha o tipo (digite 1 ou 2): ");
+            const ehCorte = opcaoTipo === '1';
 
-            const brinco = await rl.question("Digite o brinco do animal (ex: C-101): ");
+            const brinco = await rl.question("\nDigite o brinco do animal (ex: C-101): ");
             
             console.log("\nOpções de Raça:");
             console.log("1 - Nelore");
@@ -43,7 +49,13 @@ export class FirstScreen {
 
             console.log("\nEnviando dados para o Controller...");
             
-            this.controller.cadastrarBovino(brinco, racaEscolhida, peso, idade);
+            if (ehCorte) {
+                this.controller.cadastrarBovinoCorte(brinco, racaEscolhida, peso, idade);
+            } else {
+                const litrosDigitados = await rl.question("Digite a produção de leite por dia (em litros): ");
+                const litrosLeiteDia = parseFloat(litrosDigitados);
+                this.controller.cadastrarBovinoLeite(brinco, racaEscolhida, peso, idade, litrosLeiteDia);
+            }
 
             const resposta = await rl.question("\nDeseja cadastrar outro animal? (s/n): ");
             if (resposta.toLowerCase() !== 's') {

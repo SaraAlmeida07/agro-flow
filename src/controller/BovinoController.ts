@@ -1,5 +1,6 @@
 
 import { BovinoCorte } from '../model/BovinoCorte';
+import { BovinoLeite } from '../model/BovinoLeite';
 import { RacaBovina } from '../enum/RacaBovina';
 import { RelatorioService } from '../service/RelatorioService'
 import { Database } from '../Database';
@@ -14,15 +15,17 @@ export class BovinoController {
         this.db = db;
         this.relatorioService = relatorioService;
     }
-    public cadastrarBovino(brinco: string, raca: RacaBovina, peso: number, idade: number): void {
-        
-        
+    
+    public cadastrarBovinoCorte(brinco: string, raca: RacaBovina, peso: number, idade: number): void {
         const novoBovino = new BovinoCorte(brinco, raca, peso, idade);
-        
-       
-       this.db.salvarBovino(novoBovino);
-        
-        console.log(`✅ [Sistema] Boi da raça ${raca} (Brinco: ${brinco}) salvo com sucesso!`);
+        this.db.salvarBovino(novoBovino);
+        console.log(`✅ [Sistema] Bovino de Corte da raça ${raca} (Brinco: ${brinco}) salvo com sucesso!`);
+    }
+
+    public cadastrarBovinoLeite(brinco: string, raca: RacaBovina, peso: number, idade: number, litrosLeiteDia: number): void {
+        const novoBovino = new BovinoLeite(brinco, raca, peso, idade, litrosLeiteDia);
+        this.db.salvarBovino(novoBovino);
+        console.log(`✅ [Sistema] Bovino de Leite da raça ${raca} (Brinco: ${brinco}) salvo com sucesso!`);
     }
 
     

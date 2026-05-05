@@ -1,5 +1,5 @@
 import { Bovino } from "./Bovino";
-import { RacaBovina } from "./RacaBovina";
+import { RacaBovina } from "../enum/RacaBovina";
 
 export class BovinoLeite extends Bovino {
     private litrosLeiteDia: number;
@@ -14,8 +14,14 @@ export class BovinoLeite extends Bovino {
         return this.litrosLeiteDia;
     }
 
-    // getRelatorioOrdenha(): void {
-    public relatorioOrdenha(): void {
-        console.log(`🐄 Relatório de Ordenha: Este animal produz ${this.litrosLeiteDia} litros por dia.`);
+    public gerarRelatorio(): string {
+        return `🐄 --- Relatório de Ordenha: ${this.getBrinco()} ---
+            Produção: ${this.litrosLeiteDia}L/dia
+            Peso: ${this.getPeso()}kg
+            -----------------------------------------`;
+    }
+
+    public obterValor(cotacaoDia: number): string {
+        return "";
     }
 }
