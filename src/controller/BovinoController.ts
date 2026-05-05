@@ -16,16 +16,16 @@ export class BovinoController {
     }
     public cadastrarBovino(brinco: string, raca: RacaBovina, peso: number, idade: number): void {
         
-        // 1. O Controller é quem cria a instância do Model
+        
         const novoBovino = new BovinoCorte(brinco, raca, peso, idade);
         
-        // salva no Database
+       
        this.db.salvarBovino(novoBovino);
         
         console.log(`✅ [Sistema] Boi da raça ${raca} (Brinco: ${brinco}) salvo com sucesso!`);
     }
 
-    // Usando o Service
+    
     public gerarRelatorios(cotacaoDiaVivo: number): string {
         let relatoriosProntos: string[] = [];
         

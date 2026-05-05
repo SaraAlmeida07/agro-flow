@@ -3,9 +3,8 @@ import { RacaBovina } from "../enum/RacaBovina";
 export class Bovino {
     private brinco: string;
     private raca: RacaBovina;
-    private peso: number; // Peso em kg
-    private idade: number; // Idade em anos
-    // private vacinas: Vacina[] = []; // Lista de vacinas aplicadas
+    private peso: number; 
+    private idade: number;
 
     constructor(brinco: string, raca: RacaBovina, peso: number, idade: number) { //muita coisa no construtor, talvez seja melhor deixar somente os setters e getters
         this.brinco = brinco;
