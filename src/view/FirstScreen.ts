@@ -50,13 +50,18 @@ export class FirstScreen {
             console.log("\nEnviando dados para o Controller...");
             
             if (ehCorte) {
-                this.controller.cadastrarBovinoCorte(brinco, racaEscolhida, peso, idade);
+                const pesoEntradaDigitado = await rl.question("Digite o peso de ENTRADA em kg: ");
+                const pesoEntrada = parseFloat(pesoEntradaDigitado);
+    
+                const dataEntradaDigitada = await rl.question("Digite a data de entrada (YYYY-MM-DD, ex: 2026-04-01): ");
+                const dataEntrada = new Date(dataEntradaDigitada);
+    
+                this.controller.cadastrarBovinoCorte(brinco, racaEscolhida, peso, idade, pesoEntrada, dataEntrada);
             } else {
                 const litrosDigitados = await rl.question("Digite a produção de leite por dia (em litros): ");
                 const litrosLeiteDia = parseFloat(litrosDigitados);
                 this.controller.cadastrarBovinoLeite(brinco, racaEscolhida, peso, idade, litrosLeiteDia);
             }
-
             const resposta = await rl.question("\nDeseja cadastrar outro animal? (s/n): ");
             if (resposta.toLowerCase() !== 's') {
                 continuar = false;

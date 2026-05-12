@@ -16,10 +16,19 @@ export class BovinoController {
         this.relatorioService = relatorioService;
     }
     
-    public cadastrarBovinoCorte(brinco: string, raca: RacaBovina, peso: number, idade: number): void {
-        const novoBovino = new BovinoCorte(brinco, raca, peso, idade);
-        this.db.salvarBovino(novoBovino);
-        console.log(`✅ [Sistema] Bovino de Corte da raça ${raca} (Brinco: ${brinco}) salvo com sucesso!`);
+    public cadastrarBovinoCorte(brinco: string, raca: RacaBovina, peso: number, idade: number, pesoEntrada?: number, dataEntrada?: Date): void {
+    const novoBovino = new BovinoCorte(brinco, raca, peso, idade);
+    
+    
+    if (pesoEntrada !== undefined) {
+        novoBovino.setPesoEntrada(pesoEntrada);
+    }
+    if (dataEntrada !== undefined) {
+        novoBovino.setDataEntrada(dataEntrada);
+    }
+    
+    this.db.salvarBovino(novoBovino);
+    console.log(`✅ [Sistema] Bovino de Corte da raça ${raca} (Brinco: ${brinco}) salvo com sucesso!`);
     }
 
     public cadastrarBovinoLeite(brinco: string, raca: RacaBovina, peso: number, idade: number, litrosLeiteDia: number): void {
@@ -30,12 +39,7 @@ export class BovinoController {
 
     
     public gerarRelatorios(cotacaoDiaVivo: number): string {
-        let relatoriosProntos: string[] = [];
-        
-      for (let boi of this.db.listarRebanho()) {
-            const textoRelatorio = this.relatorioService.gerarRelatorioEngorda(boi, cotacaoDiaVivo);
-            relatoriosProntos.push(textoRelatorio);
-        }
-        return relatoriosProntos.join("\n"); 
+        // Service orquestra todo o rebanho
+        return this.relatorioService.gerarRelatoriodoRebanho(this.db.listarRebanho(), cotacaoDiaVivo, true);
     }
 }

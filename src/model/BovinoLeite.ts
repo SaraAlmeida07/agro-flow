@@ -24,4 +24,8 @@ export class BovinoLeite extends Bovino {
     public obterValor(cotacaoDia: number): string {
         return "";
     }
+
+    public gerarAnalise(): string {
+        return "";
+    }
 }

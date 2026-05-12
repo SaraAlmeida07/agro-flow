@@ -15,15 +15,29 @@ export class BovinoCorte extends Bovino {
         this.dataUltimaPesagem = this.dataEntrada;
     }
 
+    public setPesoEntrada(peso: number): void {
+    this.pesoEntrada = peso;        
+    }
+
+    public setDataEntrada(data: Date): void {
+    this.dataEntrada = data;
+    }
+
     public gerarRelatorio(): string {
         return `🐂 --- Relatório do Boi: ${this.getBrinco()} ---
         Peso Atual: ${this.getPeso()}kg
-        GMD: ${this.calcularGanhoDiario().toFixed(2)} kg/dia
         -----------------------------------------`;
     }
 
     public obterValor(cotacaoDia: number): string {
         return `\nValor: R$ ${this.getValorEstimadoVivo(cotacaoDia).toFixed(2)}`;
+    }
+
+    public gerarAnalise(): string {
+        return `\n📊 Análise:
+        - Ganho Total: ${this.calcularGanhoTotal()}kg
+        - GMD: ${this.calcularGanhoDiario().toFixed(2)}kg/dia
+        - Rentabilidade: ${(this.calcularGanhoDiario() * 30).toFixed(2)}kg/mês`;
     }
 
     public getValorEstimadoVivo(cotacaoDiaVivo: number): number {

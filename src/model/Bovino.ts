@@ -46,4 +46,8 @@ export class Bovino {
     public obterValor(cotacaoDia: number): string {
         return "";
     }
+
+    public gerarAnalise(): string {
+        return "";
+    }
 }
