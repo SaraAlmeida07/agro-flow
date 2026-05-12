@@ -1,9 +1,10 @@
-
 import { BovinoCorte } from '../model/BovinoCorte';
 import { BovinoLeite } from '../model/BovinoLeite';
 import { RacaBovina } from '../enum/RacaBovina';
 import { RelatorioService } from '../service/RelatorioService'
 import { Database } from '../Database';
+import { IProdutivo } from '../model/IProdutivo';
+import { Bovino } from '../model/Bovino';
 
 export class BovinoController {
     
@@ -14,6 +15,17 @@ export class BovinoController {
    constructor(db: Database, relatorioService: RelatorioService) {
         this.db = db;
         this.relatorioService = relatorioService;
+    }
+
+    public imprimirResumoProducao(): void {
+        const todosBovinos = this.db.listarRebanho();
+        
+        console.log("\n--- RESUMO DE PRODUTIVIDADE DA FAZENDA ---");
+        
+        todosBovinos.forEach((animal: Bovino) => {
+            const produtivo = animal as unknown as IProdutivo;
+            console.log(`[${animal.getBrinco()}] - ${produtivo.getProducaoDetalhada()}`);
+        });
     }
     
     public cadastrarBovinoCorte(brinco: string, raca: RacaBovina, peso: number, idade: number, pesoEntrada?: number, dataEntrada?: Date): void {

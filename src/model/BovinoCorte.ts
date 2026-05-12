@@ -1,7 +1,8 @@
 import { Bovino } from "./Bovino";
 import { RacaBovina } from "../enum/RacaBovina";
+import { IProdutivo } from "./IProdutivo";
 
-export class BovinoCorte extends Bovino {
+export class BovinoCorte extends Bovino implements IProdutivo {
   
     private pesoEntrada: number;
     private dataEntrada: Date;
@@ -66,6 +67,10 @@ export class BovinoCorte extends Bovino {
         if (diasPassados === 0) return 0;
 
         return this.calcularGanhoTotal() / diasPassados;
+    }
+
+    public getProducaoDetalhada(): string {
+        return `Ganho de peso total: ${this.calcularGanhoTotal()}kg`;
     }
     
 }

@@ -75,6 +75,9 @@ export class FirstScreen {
         // A View pede os relatórios ao Controller e os exibe 
         const listaDeRelatorios = this.controller.gerarRelatorios(cotacaoDoDia); 
         console.log(listaDeRelatorios);
+
+        // Demonstração da Interface IProdutivo
+        this.controller.imprimirResumoProducao();
         
         rl.close();
     }

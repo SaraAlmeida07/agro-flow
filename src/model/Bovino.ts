@@ -1,12 +1,12 @@
 import { RacaBovina } from "../enum/RacaBovina";
 
-export class Bovino {
+export abstract class Bovino {
     private brinco: string;
     private raca: RacaBovina;
     private peso: number; 
     private idade: number;
 
-    constructor(brinco: string, raca: RacaBovina, peso: number, idade: number) { //muita coisa no construtor, talvez seja melhor deixar somente os setters e getters
+    constructor(brinco: string, raca: RacaBovina, peso: number, idade: number) {
         this.brinco = brinco;
         this.raca = raca;
         this.peso = peso;
@@ -29,25 +29,19 @@ export class Bovino {
         return this.idade;
     }
 
-
     public setPeso(novoPeso: number): void {
         if (novoPeso <= 0) {
             console.log("Erro: Peso inválido para o animal.");
             return;
         }
         this.peso = novoPeso;
-
     }
 
     public gerarRelatorio(): string {
         return `Brinco: ${this.brinco}, Raça: ${this.raca}, Peso: ${this.peso}kg`;
     }
 
-    public obterValor(cotacaoDia: number): string {
-        return "";
-    }
+    public abstract obterValor(cotacaoDia: number): string;
 
-    public gerarAnalise(): string {
-        return "";
-    }
+    public abstract gerarAnalise(): string;
 }
